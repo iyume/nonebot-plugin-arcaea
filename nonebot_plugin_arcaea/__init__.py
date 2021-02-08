@@ -110,7 +110,7 @@ async def _arc_handle(bot: Bot, event: Event, state: T_State):
             api_type: int = 1
 
         elif api_config[:4] == 'http': # 自建 API 请根据需求选择
-            available = ['userinfo', 'b30', 'recent', 'songinfo']
+            available = ['userinfo', 'b30', 'recent', 'songinfo', 'songbest']
             api_type: int = 2
             api2_uri_http = api_config
 
@@ -121,7 +121,7 @@ async def _arc_handle(bot: Bot, event: Event, state: T_State):
                 api2_uri_http = api_config.split()[1]
                 if api2_uri_http[:4] != 'http' or api2_uri_http[-3:-1] != '/v':
                     raise ValueError
-                available = ['userinfo', 'b30', 'recent', 'songinfo', 'allscores', 'chart']
+                available = ['userinfo', 'b30', 'recent', 'songinfo', 'songbest', 'allscores', 'chart']
                 api_type: int = 3
             except:
                 logger.error('Assigning mix API config Error. Example: "mix http://127.0.0.1:8080/v3".')
@@ -138,7 +138,8 @@ async def _arc_handle(bot: Bot, event: Event, state: T_State):
             return
 
 
-        commands = [f"{state['_prefix']['raw_command']} {i}" for i in available]
+        rcmd = state['_prefix']['raw_command']
+        commands = [f'{rcmd} {i}' for i in available + ['help', 'bind [code]', 'unbind']]
         prompt_msg = 'Arcaea 查分命令\n参数列表：\n' + '\n'.join(commands)
 
         state['avaiable'] = available
@@ -309,8 +310,8 @@ async def _arc_handle(bot: Bot, event: Event, state: T_State):
             if cmd == 'chart':
                 ...
 
-            logger.warning('逻辑有问题，请检查')
-            await arc.finish('您完美避过了逻辑检查，真是个天才')
+            logger.warning(f'{cmd} 测试阶段功能')
+            await arc.finish('测试阶段，见到此消息代表无法查询')
             return
 
         logger.warning('无效查询命令')
