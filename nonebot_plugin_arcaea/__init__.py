@@ -313,7 +313,7 @@ async def _arc_handle(bot: Bot, event: Event, state: T_State):
             await arc.finish('您完美避过了逻辑检查，真是个天才')
             return
 
-        await logger.warning('无效查询命令')
+        logger.warning('无效查询命令')
         await arc.finish(prompt_msg)
         return
 
@@ -325,4 +325,16 @@ async def _arc_handle(bot: Bot, event: Event, state: T_State):
         return
 
 
+
+get_userlist = on_command('get_arcaea_userlist', permission=SUPERUSER, priority=10)
+
+@get_userlist.handle()
+async def _get_userlist(bot: Bot):
+    await database.connect()
+    data = await database.fetch_all("SELECT * FROM accounts")
+    await database.disconnect()
+    msg_head = ' ' * 5 + 'qqnum' + ' ' * 5 + 'code' + '\n'
+    msg_main = '\n'.join([f'{i} {val[0]} {val[1]}' for i, val in enumerate(data)])
+    msg_tail = f'\n用户总数: {len(data)}'
+    await get_userlist.finish(msg_head + msg_main + msg_tail)
 
