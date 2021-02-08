@@ -1,0 +1,2 @@
+include nonebot-plugin-arcaea/store.db
+recursive-include nonebot-plugin-arcaea/assets *
