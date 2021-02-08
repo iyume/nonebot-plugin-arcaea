@@ -22,7 +22,9 @@ Arcaea 查分器，可以实现 `best30` | `recent` | `songinfo` 之类的查询
 
 1. 由于使用了 colon equal，使用前请保证 `python>=3.8`
 
-2. 安装插件
+2. 由于使用了 shell_like command，使用前请保证 `nonebot2` 处于 v2a9 以上的版本
+
+3. 安装插件
 ```
 pip install nonebot-plugin-arcaea
 ```

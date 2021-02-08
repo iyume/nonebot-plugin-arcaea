@@ -37,7 +37,7 @@ parser = ArgumentParser()
 parser.add_argument('query')
 parser.add_argument('code')
 
-arc = on_shell_command('brc', aliases={'b'}, parser=parser, priority=1, block=True)
+arc = on_shell_command('arc', aliases={'a'}, parser=parser, priority=1, block=True)
 
 async def qq2code(qq) -> str:
     await database.connect()

@@ -10,7 +10,7 @@ def main():
     dis = get_dis()
     setup(
         name="nonebot-plugin-arcaea",
-        version="0.1.0",
+        version="0.1.1",
         url="https://github.com/iyume/nonebot-plugin-arcaea",
         keywords=["nonebot"],
         description="An arcaea rhythm game score-querying plugin for nonebot2",
@@ -20,7 +20,7 @@ def main():
         author_email="iyumelive@gmail.com",
         python_requires=">=3.8",
         packages=['nonebot_plugin_arcaea'],
-        install_requires=["databases", "aiosqlite", "pillow", "httpx"],
+        install_requires=["databases", "aiosqlite", "pillow", "httpx", "brotli"],
         license='GPLv3',
         classifiers=[
             "Programming Language :: Python :: 3",
