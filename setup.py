@@ -10,7 +10,7 @@ def main():
     dis = get_dis()
     setup(
         name="nonebot-plugin-arcaea",
-        version="0.1.2",
+        version="0.1.3",
         url="https://github.com/iyume/nonebot-plugin-arcaea",
         keywords=["nonebot"],
         description="An arcaea rhythm game score-querying plugin for nonebot2",
