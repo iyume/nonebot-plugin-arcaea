@@ -65,10 +65,10 @@ async def genb64img_b30_theme_inuchan(b30_dict: Dict[str, Union[int, Dict[str, A
 
     for i in range(15):
         ylen = 60 * i
-        draw.text((150, ylen + inner_gap[0]), songnames[i] + ' ' + difficulties[i], title_color, font=ft_title)
+        draw.text((150, ylen + inner_gap[0]), songnames[i] + ' ' + f'[{difficulties[i].upper()}]', title_color, font=ft_title)
         draw.text((150, ylen + inner_gap[1]), 'Score: ' + scores[i], (255, 255, 255), font=ft)
         draw.text((400, ylen + inner_gap[2]), 'PTT: ' + ratings[i], (255, 255, 255), font=ft)
-        draw.text((600, ylen + inner_gap[0]), songnames[i+15] + ' ' + difficulties[i+15], title_color, font=ft_title)
+        draw.text((600, ylen + inner_gap[0]), songnames[i+15] + ' ' + f'[{difficulties[i+15].upper()}]', title_color, font=ft_title)
         draw.text((600, ylen + inner_gap[1]), 'Score: ' + scores[i+15], (255, 255, 255), font=ft)
         draw.text((850, ylen + inner_gap[2]), 'PTT: ' + ratings[i+15], (255, 255, 255), font=ft)
 

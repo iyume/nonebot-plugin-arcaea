@@ -7,7 +7,7 @@ from PIL import Image # PIL 垃圾类型注解
 from typing import Any
 
 async def level_to_text(difficulty: int) -> str:
-    dic = {1: 'pst', 2: 'prs', 3: 'ftr', 4: 'byd'}
+    dic = {0: 'pst', 1: 'prs', 2: 'ftr', 3: 'byd'}
     return dic[difficulty]
 
 

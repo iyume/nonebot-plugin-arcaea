@@ -4,9 +4,10 @@ from datetime import datetime
 from databases import Database
 
 import nonebot
-from nonebot.plugin import on_shell_command
+from nonebot.plugin import on_shell_command, on_command
 from nonebot.rule import ArgumentParser
 from nonebot.typing import T_State
+from nonebot.permission import SUPERUSER
 from nonebot.adapters.cqhttp import Bot, Event, MessageEvent, Message
 from nonebot.log import logger
 
@@ -68,7 +69,7 @@ async def handle_userinfo_msg(query_recent: dict) -> str:
     return '\n'.join([f'称号: {name}',
                     f'当前PTT: {ptt}',
                     f'最近游玩: {recent_songname}',
-                    f'难度: {recent_level}'
+                    f'难度: {recent_level}',
                     f'Score: {recent_score}',
                     f'PTT: {recent_ptt}'])
 
