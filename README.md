@@ -62,7 +62,7 @@ pip install nonebot-plugin-arcaea
 ## 碎碎念
 在完成这个插件的中途，我 kou 框了
 
-最近忙着开一个全栈的新项目（接单），在接下来至少一个星期我将不会对此项目进行更新，但是 pr 和 issue 是会看的，欢迎贡献您的代码
+最近忙着帮大学教授做一个网站，在接下来至少一个星期我将不会对此项目进行更新，但是 pr 和 issue 是会看的，欢迎贡献您的代码
 
 ## 后期打算
 使用 fastapi 实现 allscores 的查询
@@ -70,3 +70,5 @@ pip install nonebot-plugin-arcaea
 为 recent 添加图片查询功能
 
 使用 pandas 结合 estertion 给出的查分记录完成 chart 分析
+
+以及实现各种 BotArcApi 中可以获取的资源
