@@ -54,6 +54,7 @@ pip install nonebot-plugin-arcaea
 - [Mrs4s / go-cqhttp](https://github.com/Mrs4s/go-cqhttp)
 - [nonebot / nonebot2](https://github.com/nonebot/nonebot2)
 - [TheSnowfield / BotArcAPI](https://github.com/TheSnowfield/BotArcAPI)
+- [esterTion / arc-probe-server.php](https://gist.github.com/esterTion/c673a5e2547cd54c202f129babaf601d)
 - [All Arcaea Player](https://arcaea.lowiro.com)
 
 ## 优化建议
@@ -72,3 +73,5 @@ pip install nonebot-plugin-arcaea
 使用 pandas 结合 estertion 给出的查分记录完成 chart 分析
 
 以及实现各种 BotArcApi 中可以获取的资源
+
+为数据库添加用户设置，包括各种查询的样式配置
