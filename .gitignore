@@ -3,3 +3,7 @@ __pycache__/
 dist/
 build/
 nonebot_plugin_arcaea.egg-info/
+.pdm.toml
+.vscode
+.mypy_cache
+mypy.ini
