@@ -6,7 +6,7 @@ from typing import Any
 from ...config import config
 
 
-async def songname_table(timeout: int = config.TIMEOUT) -> Any:
+async def songdb(timeout: int = config.TIMEOUT) -> Any:
     """
     返回 ``song_id`` - 歌名(en|jp) 的字典表
     """
