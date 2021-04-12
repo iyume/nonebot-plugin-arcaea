@@ -4,7 +4,6 @@ from datetime import datetime
 from pydantic import validator
 
 from ..basemodel import Base
-from ._songinfo import SongInfoDiffic
 
 
 """
@@ -52,6 +51,14 @@ from ._songinfo import SongInfoDiffic
     ]
 }
 """
+
+class SongInfoDiffic(Base):
+    ratingClass: int
+    chartDesigner: str
+    jacketDesigner: str
+    rating: float
+    ratingReal: float
+    totalNotes: int
 
 class SongInfo(Base):
     id_: str
