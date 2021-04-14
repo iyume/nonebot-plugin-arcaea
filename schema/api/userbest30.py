@@ -36,7 +36,6 @@ from ._songscore import SongScore
 """
 
 class UserBest30(Base):
-    name: str
     best30_avg: float
     recent10_avg: float
     best30_list: List[SongScore]  # 依据 rating 排序

@@ -15,9 +15,9 @@ async def query_songname(songid: str) -> str:
     return songname
 
 
-async def query_recent(code: str) -> schema.UserInfo:
+async def query_userinfo(code: str, with_recent: bool = True) -> schema.UserInfo:
     data = await _call_api.recent(code)
-    _recent = await formatter.format_recent(data)
+    _recent = await formatter.format_userinfo(data, with_recent=with_recent)
     return _recent
 
 

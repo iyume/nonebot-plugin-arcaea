@@ -41,10 +41,12 @@ class UserInfo(Base):
     user_id: Optional[int]
     name: str
     rating: float
-    recent_score: SongScore
+    recent_score: Optional[SongScore]
 
-    @validator('recent_score', check_fields=False, pre=True)
-    def prehandle_recent_score(cls, val: dict) -> SongScore:
+    @validator('recent_score', pre=True)
+    def prehandle_recent_score(cls, val: Optional[dict]) -> Optional[SongScore]:
+        if not val:
+            return None
         return SongScore(**val)
 
     character: Optional[int]
