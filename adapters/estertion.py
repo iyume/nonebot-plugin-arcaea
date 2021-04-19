@@ -20,7 +20,7 @@ async def format_userinfo(r: Any, with_recent : bool = True) -> schema.UserInfo:
     )
 
 
-async def format_b30(r: Any) -> schema.UserBest30:
+async def format_best30(r: Any) -> schema.UserBest30:
     # userinfo = r[1]['data']
     # user_name = userinfo['name']
     user_ptt = r[1]['data']['rating'] / 100
@@ -33,7 +33,3 @@ async def format_b30(r: Any) -> schema.UserBest30:
         recent10_avg=recent10_avg,
         best30_list=best30
     )
-    # return {i: val for i, val in enumerate(best30)}
-    # from statistics import mean
-    # b30_avg = mean([best30dict[i]['rating'] for i in best30dict])
-    # r10_avg = (user_ptt - 0.75 * b30_avg) * 4

@@ -21,7 +21,7 @@ async def query_userinfo(code: str, with_recent: bool = True) -> schema.UserInfo
     return _recent
 
 
-async def query_b30(code: str) -> schema.UserBest30:
+async def query_best30(code: str) -> schema.UserBest30:
     data = await _call_api.all(code)
-    _b30 = await formatter.format_b30(data)
+    _b30 = await formatter.format_best30(data)
     return _b30

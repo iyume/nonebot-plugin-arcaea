@@ -7,6 +7,8 @@ from .. import schema
 
 
 class CRUDUser():
+    model = schema.User
+
     def create(
         self,
         db: Cursor,
@@ -35,7 +37,7 @@ class CRUDUser():
         ).fetchone()
         if not user:
             return None
-        return schema.User(**user)
+        return self.model(**user)
 
     def get_by_code(
         self,
@@ -48,7 +50,7 @@ class CRUDUser():
         ).fetchone()
         if not user:
             return None
-        return schema.User(**user)
+        return self.model(**user)
 
     def update(
         self,
