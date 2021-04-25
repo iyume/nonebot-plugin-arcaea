@@ -1,3 +1,5 @@
+import os
+
 from typing import Optional, Dict, Any
 
 from pydantic import BaseSettings, validator
@@ -12,11 +14,18 @@ class Config(BaseSettings):
     _config: Any = nonebot.get_driver().config
 
     CMD: str = 'arc'       # 响应指令
-    CMD_ABBR: set = {'a'}  # 命令的 aliases
+    ALIASES: set = {'a'}  # 命令的 aliases
     CMD_START: str = list(_config.command_start)[0]
     CMD_SEP: str = list(_config.command_sep)[0]
 
-    SQLITE_DATABASE_URI: str = './db/all.db'
+    SQLITE_DATABASE_URI: str = ''
+
+    @validator("SQLITE_DATABASE_URI", pre=True)
+    def prehandle_sqlite_db_uri(cls, v: Optional[str]) -> str:
+        current_path = os.path.dirname(os.path.realpath(__file__))
+        db_name = 'db/all.db'
+        db_path = os.path.join(current_path, db_name)
+        return db_path
 
     ARCAEA_API_TYPE: Optional[str] = _config.arcaea_api_type
     # example: 'botarcapi'
@@ -48,7 +57,7 @@ class Config(BaseSettings):
     def preprocess_arcaea_query_config(
         cls, v: Optional[Dict[str, str]]
     ) -> Optional[Dict[str, Optional[str]]]:
-        if not cls.ARCAEA_API_TYPE or not cls.ARCAEA_API_URI or not v:
+        if not v:
             return None
         return {
             "recent": v.get('recent', 'estertion'),
@@ -64,8 +73,8 @@ class Config(BaseSettings):
 
     HIGHEST_SONG_CONSTANT = 11.5  # 目前最高歌曲定数（风暴byd）
 
-    estertion_uri = ESTERTION_URI
-    botarcapi_uri = ARCAEA_API_URI if ARCAEA_API_TYPE == 'botarcapi' else None
+    estertion_uri: str = ESTERTION_URI
+    botarcapi_uri: Optional[str] = ARCAEA_API_URI if ARCAEA_API_TYPE == 'botarcapi' else None
 
     DEFAULT_RECENT_TYPE: str = 'pic'
     DEFAULT_BEST30_TYPE: str = 'pic'

@@ -24,7 +24,7 @@ class CRUDUser():
         }
         db.execute(
             f"""INSERT INTO accounts ({','.join(user_dict.keys())})
-            VALUES ({','.join([str(val) for val in user_dict.values()])})""")
+            VALUES ({','.join(str(val) for val in user_dict.values())})""")
 
     def get_by_qq(
         self,
@@ -32,7 +32,7 @@ class CRUDUser():
         qq: int
     ) -> Optional[schema.User]:
         user = db.execute(
-            "SELECT * FROM user WHERE qq=?",
+            "SELECT * FROM accounts WHERE qq=?",
             (qq,)
         ).fetchone()
         if not user:
@@ -45,7 +45,7 @@ class CRUDUser():
         code: str
     ) -> Optional[schema.User]:
         user = db.execute(
-            "SELECT * FROM user WHERE code=?",
+            "SELECT * FROM accounts WHERE code=?",
             (code,)
         ).fetchone()
         if not user:
@@ -65,7 +65,7 @@ class CRUDUser():
         }
         argments = [f"{i}={val}" for i, val in update_dict.items() if val]
         db.execute(
-            f"UPDATE user SET {','.join(argments)} WHERE qq=?",
+            f"UPDATE accounts SET {','.join(argments)} WHERE qq=?",
             (qq,)
         )
 
@@ -76,7 +76,7 @@ class CRUDUser():
     ) -> None:
         # unbind method, not really delete user record
         db.execute(
-            "UPDATE user SET code=NULL WHERE qq=?",
+            "UPDATE accounts SET code=NULL WHERE qq=?",
             (qq,)
         ).fetchone()
 
