@@ -16,8 +16,8 @@ class User(BaseModel):
     def validate_code(cls, code: Optional[str]) -> Any:
         if not code:
             return None
-        if len(code) != 9:
-            raise ValueError(f"length of code: '{code}' must be 9")
+        if len(code) != 9 or not code.isnumeric():
+            raise ValueError(f"code: '{code}' must be of length 9 or number")
         return code
 
     @validator('recent_type', 'b30_type')

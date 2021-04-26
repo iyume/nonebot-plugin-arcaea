@@ -56,10 +56,12 @@ class CRUDUser():
         self,
         db: Cursor,
         qq: int,
-        best30_type: Optional[str],
-        recent_type: Optional[str]
+        code: Optional[str] = None,
+        best30_type: Optional[str] = None,
+        recent_type: Optional[str] = None
     ) -> None:
         update_dict = {
+            "code": code,
             "recent_type": recent_type,
             "best30_type": best30_type
         }

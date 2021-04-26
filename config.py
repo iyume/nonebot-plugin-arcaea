@@ -18,6 +18,13 @@ class Config(BaseSettings):
     CMD_START: str = list(_config.command_start)[0]
     CMD_SEP: str = list(_config.command_sep)[0]
 
+    # command aliases setting
+    CMDA_HELP: set = {'help', 'doc', '帮助'}
+    CMDA_BIND: set = {'bind', 'register'}
+    CMDA_INFO: set = {'info', 'userinfo'}
+    CMDA_RECENT: set = {'recent'}
+    CMDA_B30: set = {'b30', 'best30'}
+
     SQLITE_DATABASE_URI: str = ''
 
     @validator("SQLITE_DATABASE_URI", pre=True)
