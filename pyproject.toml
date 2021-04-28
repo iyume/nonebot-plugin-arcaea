@@ -6,7 +6,7 @@ authors = [
     {name = "iyume", email = "iyumelive@gmail.com"},
 ]
 dependencies = [
-    "nonebot2 @ git+https://github.com/nonebot/nonebot2.git",
+    "nonebot2~=2.0.0a9",
     "httpx~=0.17",
     "pillow~=8.2",
     "brotli~=1.0",
