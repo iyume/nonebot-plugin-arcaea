@@ -5,6 +5,8 @@ from pydantic import BaseModel, validator
 
 
 class User(BaseModel):
+    __tablename__: str = 'accounts'
+
     qq: int  # primary key
     code: Optional[str] = None
     created_time: datetime
