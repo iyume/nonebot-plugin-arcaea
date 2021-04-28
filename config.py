@@ -40,35 +40,36 @@ class Config(BaseSettings):
     ARCAEA_API_URI: Optional[str] = _config.arcaea_api_uri
     # example: 'http://127.0.0.1/v3'
     # 可选配置项，关联于 ARCAEA_API_TYPE 配置项，作为获取游玩信息的第二 API，目前只支持 BotArcApi
-    ARCAEA_QUERY_CONFIG: Optional[Dict[str, str]] = _config.arcaea_query_config
+    ARCAEA_QUERY_CONFIG: Dict[str, str] = _config.arcaea_query_config
     """
     - **类型**: ``Optional[Dict[str, str]]``
     - **默认值**:
-      {
-        "recent": "estertion",
-        "best30": "estertion",
-        "songinfo": "botarcapi"
-      }
+        {
+            "recent": "estertion",
+            "best30": "estertion",
+            "songinfo": "botarcapi"
+        }
 
     :说明:
-      可选配置项，用于配置命令查分使用的源，此配置项要求填写 ARCAEA_API_TYPE, ARCAEA_API_URI
+        可选配置项，用于配置命令查分使用的源，此配置项要求填写 ARCAEA_API_TYPE, ARCAEA_API_URI
 
     :示例:
-      {
-        "recent": "botarcapi",
-        "best30": "botarcapi",  # 由于 estertion 的源查 b30 速度特别快，所以不建议更改此项
-        "songinfo": "botarcapi"
-      }
+        {
+            "recent": "botarcapi",
+            "best30": "botarcapi",  # 由于 estertion 的源查 b30 速度特别快，所以不建议更改此项
+            "songinfo": "botarcapi"
+        }
     """
     @validator('ARCAEA_QUERY_CONFIG', pre=True)
     def preprocess_arcaea_query_config(
         cls, v: Optional[Dict[str, str]]
-    ) -> Optional[Dict[str, Optional[str]]]:
+    ) -> Dict[str, str]:
         if not v:
-            return None
+            v = dict()
         return {
-            "recent": v.get('recent', 'estertion'),
-            "best30": v.get('best30', 'estertion')
+            "userinfo": v.get('userinfo', 'estertion'),
+            "best30": v.get('best30', 'estertion'),
+            "songinfo": v.get('songinfo', 'estertion')
         }
 
     ESTERTION_URI = 'wss://arc.estertion.win:616'
