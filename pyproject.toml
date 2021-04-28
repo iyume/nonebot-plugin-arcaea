@@ -9,6 +9,7 @@ dependencies = [
     "nonebot2 @ git+https://github.com/nonebot/nonebot2.git",
     "httpx~=0.17",
     "pillow~=8.2",
+    "brotli~=1.0",
 ]
 requires-python = ">=3.7"
 dynamic = ["classifiers"]
