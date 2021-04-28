@@ -1,7 +1,7 @@
 [project]
 name = "nonebot_plugin_arcaea"
 version = "0.2.0"
-description = ""
+description = "An arcaea rhythm game score-querying bot plugin for nonebot2."
 authors = [
     {name = "iyume", email = "iyumelive@gmail.com"},
 ]
@@ -13,9 +13,17 @@ dependencies = [
 requires-python = ">=3.7"
 dynamic = ["classifiers"]
 license = {text = "MIT"}
+readme = "README.md"
+keywords = ["bot", "qq", "plugin", "onebot", "arcaea"]
+packages = [
+    { include = "nonebot_plugin_arcaea" },
+]
+include = ["nonebot_plugin_arcaea/db/all.db"]
 
 [project.urls]
-homepage = ""
+homepage = "https://github.com/iyume/nonebot-plugin-arcaea"
+repository = "https://github.com/iyume/nonebot-plugin-arcaea"
+documentation = "https://github.com/iyume/nonebot-plugin-arcaea/blob/master/README.md"
 
 [build-system]
 requires = ["pdm-pep517"]

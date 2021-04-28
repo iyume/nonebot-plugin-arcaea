@@ -1,4 +1,5 @@
 from typing import Any
+from time import time
 
 from nonebot.adapters.cqhttp import Bot
 from nonebot.typing import T_State
@@ -14,7 +15,9 @@ async def recent_handler(bot: Bot, state: T_State) -> Any:
     if cmd in config.CMDA_RECENT:
         if not current_user.code:
             raise ValueError
+        query_start_time = time()
         userinfo = await api.query.userinfo(current_user.code, with_recent=True)
+        query_end_time = time()
         recent = userinfo.recent_score
         if not recent:
             raise RuntimeError
@@ -22,16 +25,17 @@ async def recent_handler(bot: Bot, state: T_State) -> Any:
             await arc.send('\n'.join((
                 f"name: {userinfo.name}",
                 f"PTT: {userinfo.rating}",
-                f'最近游玩: {recent.song_id}',
-                f'难度: {recent.difficulty}',
-                f'Score: {recent.score}',
-                f'PTT: {recent.rating:.2f}',
-                f'大P: {recent.shiny_perfect_count}',
-                f'小P: {recent.perfect_count - recent.shiny_perfect_count}',
-                f'count P: {recent.perfect_count}',
-                f'count FAR: {recent.near_count}',
-                f'count MISS: {recent.miss_count}',
-                f'Time: {recent.time_played}'
+                f"最近游玩: {recent.song_id}",
+                f"难度: {recent.difficulty}",
+                f"Score: {recent.score}",
+                f"PTT: {recent.rating:.2f}",
+                f"大P: {recent.shiny_perfect_count}",
+                f"小P: {recent.perfect_count - recent.shiny_perfect_count}",
+                f"count P: {recent.perfect_count}",
+                f"count FAR: {recent.near_count}",
+                f"count MISS: {recent.miss_count}",
+                f"Time: {recent.time_played:%F %X}",
+                f"查询耗时: {query_end_time - query_start_time:.2f}"
             )))
         else:
             await arc.send('this_is_recent.jpg')
