@@ -19,7 +19,7 @@ keywords = ["bot", "qq", "plugin", "onebot", "arcaea"]
 packages = [
     { include = "nonebot_plugin_arcaea" },
 ]
-include = ["nonebot_plugin_arcaea/db/all.db"]
+include = ["nonebot_plugin_arcaea/db/init_db.sql"]
 
 [project.urls]
 homepage = "https://github.com/iyume/nonebot-plugin-arcaea"

@@ -1,6 +1,6 @@
-import os
-
 from typing import Optional, Dict, Any
+from pathlib import Path
+import sqlite3
 
 from pydantic import BaseSettings, validator
 
@@ -25,14 +25,19 @@ class Config(BaseSettings):
     CMDA_RECENT: set  = { 'recent' }
     CMDA_B30: set     = { 'b30', 'best30' }
 
-    SQLITE_DATABASE_URI: str = ''
+    SQLITE_DATABASE_URI: str = 'db/all.db'
 
     @validator("SQLITE_DATABASE_URI", pre=True)
-    def prehandle_sqlite_db_uri(cls, v: Optional[str]) -> str:
-        current_path = os.path.dirname(os.path.realpath(__file__))
-        db_name = 'db/all.db'
-        db_path = os.path.join(current_path, db_name)
-        return db_path
+    def prehandle_sqlite_db_uri(cls, v: str) -> str:
+        plugin_dir = Path(__file__).resolve().parent
+        db_path = plugin_dir / v
+        if not db_path.is_file():
+            with open(plugin_dir / 'db' / 'init_db.sql') as f:
+                sql_text = f.read()
+            with sqlite3.connect(str(db_path)) as conn:
+                conn.execute(sql_text)
+                conn.commit()
+        return str(db_path)
 
     ARCAEA_API_TYPE: Optional[str] = _config.arcaea_api_type
     # example: 'botarcapi'

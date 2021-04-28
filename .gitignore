@@ -7,3 +7,4 @@ nonebot_plugin_arcaea.egg-info/
 .mypy_cache
 mypy.ini
 *.db*
+/__init__.py
