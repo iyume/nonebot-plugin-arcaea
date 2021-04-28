@@ -1,5 +1,5 @@
 from . import _call_api
-from ...adapters import estertion as formatter
+from ..adapters import estertion as formatter
 from ... import schema
 
 

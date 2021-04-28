@@ -1,7 +1,7 @@
 from typing import Any
 from statistics import mean
 
-from .. import schema
+from ... import schema
 
 
 async def format_songdb(r: Any) -> Any:

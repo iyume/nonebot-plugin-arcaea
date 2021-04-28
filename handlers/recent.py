@@ -1,6 +1,6 @@
 from typing import Any
 
-from nonebot.adapters.cqhttp import Bot, MessageEvent
+from nonebot.adapters.cqhttp import Bot
 from nonebot.typing import T_State
 
 from ..config import config
@@ -8,7 +8,7 @@ from ..matcher import arc
 from .. import schema, api
 
 
-async def recent_handler(bot: Bot, event: MessageEvent, state: T_State) -> Any:
+async def recent_handler(bot: Bot, state: T_State) -> Any:
     cmd = state['cmd']
     current_user: schema.User = state['current_user']
     if cmd in config.CMDA_RECENT:
