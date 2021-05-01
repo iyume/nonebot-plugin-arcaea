@@ -3,7 +3,7 @@ import websockets
 import brotli
 from typing import Any
 
-from ...config import config
+from ....config import config
 
 
 async def songdb(timeout: int = config.TIMEOUT) -> Any:
@@ -49,11 +49,19 @@ async def all(code: str, timeout: int = config.TIMEOUT) -> Any:
         pstring = await ws.recv()
         if pstring != 'queried':
             raise RuntimeError(str(pstring))
-        while True:
-            if ws.closed:
-                raise RuntimeError
-            r = await ws.recv()
-            if isinstance(r, str) and r == 'bye':
+        try:
+            # 这个源在 recv 33 次和 52 次循环时随机报错，目前暂无解决方法
+            while True:
+                if ws.closed:
+                    raise RuntimeError
+                r = await ws.recv()
+                if isinstance(r, str) and r == 'bye':
+                    await ws.close()
+                    return _data
+                if isinstance(r, bytes):
+                    _data.append(json.loads(brotli.decompress(r)))
+        except websockets.exceptions.ConnectionClosedError as e:
+            if _data:
                 return _data
-            if isinstance(r, bytes):
-                _data.append(json.loads(brotli.decompress(r)))
+            else:
+                raise e

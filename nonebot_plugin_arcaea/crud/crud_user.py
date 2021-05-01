@@ -18,7 +18,7 @@ class CRUDUser():
         user_dict = {
             "qq": qq,
             "code": code,
-            "created_time": datetime.now(),
+            "created_time": f"{datetime.now():%F %X}",
             "recent_type": config.DEFAULT_RECENT_TYPE,
             "b30_type": config.DEFAULT_BEST30_TYPE
         }

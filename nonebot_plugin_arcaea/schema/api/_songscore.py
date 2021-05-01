@@ -1,6 +1,8 @@
 from typing import Optional
 from datetime import datetime
 
+from pydantic import validator
+
 from ..basemodel import Base
 
 
@@ -28,7 +30,7 @@ from ..basemodel import Base
 
 class SongScore(Base):
     song_id: str
-    difficulty: int
+    difficulty: str
     score: int
     shiny_perfect_count: int
     perfect_count: int
@@ -45,3 +47,7 @@ class SongScore(Base):
     character: Optional[int]
     is_skill_sealed: Optional[bool]
     is_char_uncapped: Optional[bool]
+
+    @validator('difficulty', pre=True)
+    def prehandle_songscore_difficulty(cls, val: int) -> str:
+        return { 0: 'PST', 1: 'PRS', 2: 'FTR', 3: 'BYD' }.get(val, 'unknown')

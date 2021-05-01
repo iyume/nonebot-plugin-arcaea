@@ -1,1 +1,0 @@
-from .call_api import query_best30, query_userinfo

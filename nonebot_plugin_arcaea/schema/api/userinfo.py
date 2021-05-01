@@ -45,9 +45,7 @@ class UserInfo(Base):
 
     @validator('recent_score', pre=True)
     def prehandle_recent_score(cls, val: Optional[dict]) -> Optional[SongScore]:
-        if not val:
-            return None
-        return SongScore(**val)
+        return SongScore(**val) if val else None
 
     character: Optional[int]
     join_date: Optional[datetime]
