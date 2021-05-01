@@ -10,7 +10,7 @@ async def songdb(timeout: int = config.TIMEOUT) -> Any:
     """
     返回 ``song_id`` - 歌名(en|jp) 的字典表
     """
-    async with websockets.connect(config.estertion_uri, timeout=timeout) as ws:
+    async with websockets.connect(config.ESTERTION_URI, timeout=timeout) as ws:
         await ws.send('constants')
         r = await ws.recv()
         await ws.close()
@@ -21,7 +21,7 @@ async def recent(code: str, timeout: int = config.TIMEOUT) -> Any:
     """
     返回最近游玩成绩
     """
-    async with websockets.connect(config.estertion_uri, timeout=timeout) as ws:
+    async with websockets.connect(config.ESTERTION_URI, timeout=timeout) as ws:
         await ws.send(f"{code} 1 5")
         pstring = await ws.recv()
         if pstring != 'queried':
@@ -44,7 +44,7 @@ async def all(code: str, timeout: int = config.TIMEOUT) -> Any:
     返回 ws 查询的全部结果，包括 ``userinfo``, ``recent``, ``record of all songs``
     """
     _data: list = []
-    async with websockets.connect(config.estertion_uri, timeout=timeout) as ws:
+    async with websockets.connect(config.ESTERTION_URI, timeout=timeout) as ws:
         await ws.send(f"{code} 5 12")
         pstring = await ws.recv()
         if pstring != 'queried':
@@ -59,7 +59,9 @@ async def all(code: str, timeout: int = config.TIMEOUT) -> Any:
                     await ws.close()
                     return _data
                 if isinstance(r, bytes):
-                    _data.append(json.loads(brotli.decompress(r)))
+                    data = json.loads(brotli.decompress(r))
+                    if data['cmd'] == 'scores':
+                        _data.append(data)
         except websockets.exceptions.ConnectionClosedError as e:
             if _data:
                 return _data

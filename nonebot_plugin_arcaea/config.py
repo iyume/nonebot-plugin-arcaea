@@ -39,55 +39,59 @@ class Config(BaseSettings):
                 conn.commit()
         return str(db_path)
 
-    ARCAEA_API_TYPE: Optional[str] = _config.arcaea_api_type
-    # example: 'botarcapi'
-    # 可选配置项，作为给 API_URI 赋值的依据
-    ARCAEA_API_URI: Optional[str] = _config.arcaea_api_uri
-    # example: 'http://127.0.0.1/v3'
-    # 可选配置项，关联于 ARCAEA_API_TYPE 配置项，作为获取游玩信息的第二 API，目前只支持 BotArcApi
-    ARCAEA_QUERY_CONFIG: Dict[str, str] = _config.arcaea_query_config
+    ESTERTION_URI = 'wss://arc.estertion.win:616'
+    # 获取游玩信息的默认 API，来自 estertion 维护的公开源
+    BOTARCAPI_URI: Optional[str] = _config.arcaea_botarcapi_uri
+    """
+    - **类型**: ``Optional[str]``
+    - **默认值**: None
+
+    :说明:
+        可选配置项，填写 BotArcApi 的服务器地址
+        配置名 ARCAEA_BOTARCAPI_URI
+
+    :示例:
+        'http://127.0.0.1/v4'
+    """
+    QUERY_CONFIG: Dict[str, str] = _config.arcaea_query_config
     """
     - **类型**: ``Optional[Dict[str, str]]``
     - **默认值**:
         {
-            "recent": "estertion",
+            "userinfo": "estertion",  # include recent score
             "best30": "estertion",
-            "songinfo": "botarcapi"
+            "songinfo": "estertion"
         }
 
     :说明:
-        可选配置项，用于配置命令查分使用的源，此配置项要求填写 ARCAEA_API_TYPE, ARCAEA_API_URI
+        可选配置项，用于配置每个命令查询使用的源
+        如果检查到 BOTARCAPI_URI 配置项，则全部的值默认为 botarcapi
+        配置名 ARCAEA_QUERY_CONFIG
 
     :示例:
         {
-            "recent": "botarcapi",
-            "best30": "botarcapi",  # 由于 estertion 的源查 b30 速度特别快，所以不建议更改此项
+            "userinfo": "botarcapi",
+            "best30": "botarcapi",
             "songinfo": "botarcapi"
         }
     """
-    @validator('ARCAEA_QUERY_CONFIG', pre=True)
+    @validator('QUERY_CONFIG', pre=True)
     def preprocess_arcaea_query_config(
         cls, v: Optional[Dict[str, str]]
     ) -> Dict[str, str]:
-        if not v:
-            v = dict()
-        return {
-            "userinfo": v.get('userinfo', 'estertion'),
-            "best30": v.get('best30', 'estertion'),
-            "songinfo": v.get('songinfo', 'estertion')
+        query_config: Dict[str, str] = {
+            'userinfo': 'botarcapi' if cls.BOTARCAPI_URI else 'estertion',
+            'best30': 'botarcapi' if cls.BOTARCAPI_URI else 'estertion',
+            'songinfo': 'botarcapi' if cls.BOTARCAPI_URI else 'estertion'
         }
+        if v:
+            query_config.update(v)
+        return query_config
 
-    ESTERTION_URI = 'wss://arc.estertion.win:616'
-    """
-    获取游玩信息的默认 API，来自 estertion 维护的公开源
-    """
+    TIMEOUT = 5
 
-    TIMEOUT = 8
-
-    HIGHEST_SONG_CONSTANT = 11.5  # 目前最高歌曲定数（风暴byd）
-
-    estertion_uri: str = ESTERTION_URI
-    botarcapi_uri: Optional[str] = ARCAEA_API_URI if ARCAEA_API_TYPE == 'botarcapi' else None
+    HIGHEST_SONG_CONSTANT = 11.5
+    # 目前最高歌曲定数（风暴byd）
 
     DEFAULT_RECENT_TYPE: str = 'pic'
     DEFAULT_BEST30_TYPE: str = 'pic'
