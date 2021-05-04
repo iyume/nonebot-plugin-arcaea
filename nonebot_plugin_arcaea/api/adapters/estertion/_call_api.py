@@ -55,8 +55,9 @@ async def all(code: str, timeout: int = config.TIMEOUT) -> Any:
                 if ws.closed:
                     raise RuntimeError
                 r = await ws.recv()
+                if isinstance(r, str) and r == 'error,add':
+                    raise ConnectionError
                 if isinstance(r, str) and r == 'bye':
-                    await ws.close()
                     return _data
                 if isinstance(r, bytes):
                     data = json.loads(brotli.decompress(r))

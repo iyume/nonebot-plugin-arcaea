@@ -15,8 +15,8 @@ class QueryResolver(object):
     def query_config(self) -> Dict[str, APIQueryBase]:
         query_config: Dict[str, APIQueryBase] = {
             key: {
-                'estertion': Estertion(self.code),
-                'botarcapi': Botarcapi(self.code)
+                'estertion': self.estertion,
+                'botarcapi': self.botarcapi
             }[val]
             for key, val in config.QUERY_CONFIG.items()
         }
@@ -25,8 +25,10 @@ class QueryResolver(object):
     def __init__(self, code: str) -> None:
         super().__init__()
         self.code = code
+        self.estertion = Estertion(code)
+        self.botarcapi = Botarcapi(code)
 
-    async def userinfo(self, with_recent: bool = True) -> schema.UserInfo:
+    async def userinfo(self, with_recent: bool) -> schema.UserInfo:
         api = self.query_config['userinfo']
         return await api.userinfo(with_recent=with_recent)
 
