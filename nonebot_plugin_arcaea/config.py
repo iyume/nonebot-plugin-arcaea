@@ -1,5 +1,6 @@
 from typing import Optional, Dict, Any
 from pathlib import Path
+from copy import deepcopy
 import sqlite3
 
 from pydantic import BaseSettings, validator
@@ -11,7 +12,7 @@ from nonebot.log import logger
 class Config(BaseSettings):
     MAINTAINER: str = 'iyume <iyumelive@gmail.com>'
 
-    _config: Any = nonebot.get_driver().config
+    _config: Any = deepcopy(nonebot.get_driver().config)
 
     CMD: str = 'arc'       # 响应指令
     ALIASES: set = {'a'}  # 命令的 aliases
@@ -53,7 +54,15 @@ class Config(BaseSettings):
     :示例:
         'http://127.0.0.1/v4'
     """
-    QUERY_CONFIG: Dict[str, str] = _config.arcaea_query_config
+    @property
+    def QUERY_CONFIG(self) -> Dict[str, str]:
+        query_config: Dict[str, str] = {
+            key: 'botarcapi' if self.BOTARCAPI_URI else 'estertion'
+            for key in ['userinfo', 'best30', 'songinfo']
+        }
+        if self._config.arcaea_query_config:
+            query_config.update(self._config.arcaea_query_config)
+        return query_config
     """
     - **类型**: ``Optional[Dict[str, str]]``
     - **默认值**:
@@ -75,18 +84,6 @@ class Config(BaseSettings):
             "songinfo": "botarcapi"
         }
     """
-    @validator('QUERY_CONFIG', pre=True)
-    def preprocess_arcaea_query_config(
-        cls, v: Optional[Dict[str, str]]
-    ) -> Dict[str, str]:
-        query_config: Dict[str, str] = {
-            'userinfo': 'botarcapi' if cls.BOTARCAPI_URI else 'estertion',
-            'best30': 'botarcapi' if cls.BOTARCAPI_URI else 'estertion',
-            'songinfo': 'botarcapi' if cls.BOTARCAPI_URI else 'estertion'
-        }
-        if v:
-            query_config.update(v)
-        return query_config
 
     TIMEOUT = 5
 

@@ -11,7 +11,7 @@ class APIQueryBase(abc.ABC):
         self.code = code
 
     @abc.abstractmethod
-    async def userinfo(self, with_recent: bool = True) -> schema.UserInfo:
+    async def userinfo(self, *, with_recent: bool = True) -> schema.UserInfo:
         raise NotImplementedError
 
     @abc.abstractmethod
@@ -19,6 +19,9 @@ class APIQueryBase(abc.ABC):
         raise NotImplementedError
 
     @staticmethod
-    @abc.abstractmethod
     async def songname(song_id: str) -> str:
+        raise NotImplementedError
+
+    @staticmethod
+    async def songinfo(song_id: str) -> schema.SongInfo:
         raise NotImplementedError

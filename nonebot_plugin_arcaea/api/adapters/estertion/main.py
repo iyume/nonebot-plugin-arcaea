@@ -18,7 +18,7 @@ class APIQuery(APIQueryBase):
         songname = r[song_id]['en']  # 有其他语种，后期再写
         return songname
 
-    async def userinfo(self, with_recent: bool = True) -> schema.UserInfo:
+    async def userinfo(self, *, with_recent: bool = True) -> schema.UserInfo:
         r = await _call_api.recent(self.code)
         r = r['data']
         recent = r['recent_score'][0] if with_recent else None
