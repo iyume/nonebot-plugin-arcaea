@@ -61,8 +61,7 @@ async def all(code: str, timeout: int = config.TIMEOUT) -> Any:
                     return _data
                 if isinstance(r, bytes):
                     data = json.loads(brotli.decompress(r))
-                    if data['cmd'] == 'scores':
-                        _data.append(data)
+                    _data.append(data)
         except websockets.exceptions.ConnectionClosedError as e:
             if _data:
                 return _data

@@ -21,7 +21,7 @@ class APIQuery(APIQueryBase):
     async def userinfo(self, *, with_recent: bool) -> schema.UserInfo:
         r = await _call_api.userinfo(self.code)
         r = r['data']
-        recent = r['recent_score'][0] if with_recent else None
+        recent = r['recent_score'] if with_recent else None
         name = r['name']
         rating = r['rating'] / 100
         return schema.UserInfo(
