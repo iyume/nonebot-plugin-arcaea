@@ -22,7 +22,7 @@ async def recent_handler(bot: Bot, state: T_State) -> Any:
         userinfo = await api.userinfo(with_recent=True)
         query_end_time = time()
         userinfo_msg = messages.text(userinfo)
-        send_msg = userinfo_msg + f"查询耗时: {query_end_time - query_start_time:.2f}"
+        send_msg = userinfo_msg + f"\n查询耗时: {query_end_time - query_start_time:.2f}"
         if current_user.recent_type == 'text':
             await arc.send(send_msg)
         else:

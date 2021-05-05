@@ -51,7 +51,7 @@ async def userinfo(code: str, recent: int = 1) -> Any:
     return await get(
         endpoint,
         usercode=code,
-        recent=recent
+        recent=int(recent)
     )
 
 
