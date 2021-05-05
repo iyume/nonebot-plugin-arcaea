@@ -67,7 +67,7 @@ class CRUDUser():
             "recent_type": recent_type,
             "best30_type": best30_type
         }
-        argments = [f"{i}={val}" for i, val in update_dict.items() if val != None]
+        argments = [f"{i}='{val}'" for i, val in update_dict.items() if val != None]
         db.execute(
             f"UPDATE accounts SET {','.join(argments)} WHERE qq=?",
             (qq,)

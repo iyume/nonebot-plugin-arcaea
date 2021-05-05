@@ -19,10 +19,13 @@ async def info_handler(bot: Bot, state: T_State) -> Any:
             raise ValueError
         api = ArcApiPlus(current_user.code)
         query_start_time = time()
-        userinfo = await api.userinfo(with_recent=False)
+        try:
+            userinfo = await api.userinfo(with_recent=False)
+        except:
+            await arc.finish('查询失败', at_sender=True)
+            return
         query_end_time = time()
         userinfo_msg = messages.text(userinfo)
         send_msg = userinfo_msg + f"\n查询耗时: {query_end_time - query_start_time:.2f}"
-        await arc.send(send_msg)
-        await arc.finish()
+        await arc.finish('Info 查询结果\n' + send_msg, at_sender=True)
         return

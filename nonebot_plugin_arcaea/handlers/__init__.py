@@ -5,3 +5,4 @@ from .b30 import b30_handler
 from .help import help_handler
 from .pre import pre_handler
 from .auth import auth_handler
+from .config import userconfig_handler

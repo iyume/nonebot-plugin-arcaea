@@ -11,11 +11,11 @@ class User(BaseModel):
     code: Optional[str] = None
     created_time: datetime
     is_active: bool = True
-    recent_type: Optional[str]
-    b30_type: Optional[str]
+    recent_type: str
+    b30_type: str
 
     @validator('code')
-    def validate_code(cls, code: Optional[str]) -> Any:
+    def validate_code(cls, code: Optional[str]) -> Optional[str]:
         if not code:
             return None
         if len(code) != 9 or not code.isnumeric():
@@ -23,7 +23,7 @@ class User(BaseModel):
         return code
 
     @validator('recent_type', 'b30_type')
-    def validate_query_type(cls, v: str) -> Any:
-        if v not in ['text', 'pic']:
-            raise ValueError(f"type: '{v}' must be text or pic")
+    def validate_query_type(cls, v: str) -> str:
+        if v != 'text' and not v.startswith('theme_'):
+            raise ValueError(f"type: '{v}' must be text or one of image themes")
         return v
