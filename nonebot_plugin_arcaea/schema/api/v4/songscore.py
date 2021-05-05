@@ -3,12 +3,13 @@ from datetime import datetime
 
 from pydantic import validator
 
-from ..basemodel import Base
+from ...basemodel import Base
+from ..utils import num2diffstr
 
 
 """
 {
-    "$schema": "https://github.com/TheSnowfield/BotArcAPI/wiki/Reference-of-v3-userbest",
+    "$schema": "https://github.com/TheSnowfield/BotArcAPI/wiki/Reference-of-v4-user-best",
     "song_id": "grievouslady",
     "difficulty": 2,
     "score": 0,
@@ -50,4 +51,4 @@ class SongScore(Base):
 
     @validator('difficulty', pre=True)
     def prehandle_songscore_difficulty(cls, val: int) -> str:
-        return { 0: 'PST', 1: 'PRS', 2: 'FTR', 3: 'BYD' }.get(val, 'unknown')
+        return num2diffstr(val)

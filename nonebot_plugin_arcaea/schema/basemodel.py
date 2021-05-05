@@ -5,4 +5,4 @@ from pydantic.dataclasses import dataclass
 @dataclass
 class Base(BaseModel):
     class Config:
-        extra = "allow"
+        extra = "ignore"

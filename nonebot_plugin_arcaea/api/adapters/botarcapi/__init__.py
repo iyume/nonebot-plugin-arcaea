@@ -1,1 +1,1 @@
-from .main import APIQuery
+from .v4 import APIQuery

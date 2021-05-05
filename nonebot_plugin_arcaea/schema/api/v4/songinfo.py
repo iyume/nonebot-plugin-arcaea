@@ -3,12 +3,12 @@ from datetime import datetime
 
 from pydantic import validator
 
-from ..basemodel import Base
+from ...basemodel import Base
 
 
 """
 {
-    "$schema": "https://github.com/TheSnowfield/BotArcAPI/wiki/Reference-of-v3-songinfo",
+    "$schema": "https://github.com/TheSnowfield/BotArcAPI/wiki/Reference-of-v4-song-info",
     "id": "ifi",
     "title_localized": {
         "en": "#1f1e33"
@@ -29,7 +29,7 @@ from ..basemodel import Base
             "jacketDesigner": "望月けい",
             "rating": 5,
             "ratingReal": 5.5,
-            "totalNotes": 765
+    "totalNotes": 765
         },
         {
             "ratingClass": 1,
@@ -37,7 +37,7 @@ from ..basemodel import Base
             "jacketDesigner": "望月けい",
             "rating": 9,
             "ratingReal": 9.2,
-            "totalNotes": 1144
+    "totalNotes": 1144
         },
         {
             "ratingClass": 2,
@@ -46,19 +46,21 @@ from ..basemodel import Base
             "rating": 10,
             "ratingReal": 10.9,
             "ratingPlus": true,
-            "totalNotes": 1576
+    "totalNotes": 1576
         }
     ]
 }
 """
 
-class SongInfoDiffic(Base):
+class SongInfoPerLevel(Base):
     ratingClass: int
     chartDesigner: str
     jacketDesigner: str
     rating: float
     ratingReal: float
     totalNotes: int
+    ratingPlus: bool = False
+
 
 class SongInfo(Base):
     id_: str
@@ -72,8 +74,8 @@ class SongInfo(Base):
     remote_dl: bool
     world_unlock: bool
     date: datetime
-    difficulties: List[SongInfoDiffic]
+    difficulties: List[SongInfoPerLevel]
 
     @validator('difficulties', pre=True)
-    def prehandle_songinfo_difficulties(cls, v: List[dict]) -> List[SongInfoDiffic]:
-        return [SongInfoDiffic(**d) for d in sorted(v, key=lambda x: x['ratingClass'])]
+    def prehandle_songinfo_difficulties(cls, v: List[dict]) -> List[SongInfoPerLevel]:
+        return [SongInfoPerLevel(**d) for d in sorted(v, key=lambda x: x['ratingClass'])]

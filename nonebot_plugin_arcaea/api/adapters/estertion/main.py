@@ -18,8 +18,8 @@ class APIQuery(APIQueryBase):
         songname = r[song_id]['en']  # 有其他语种，后期再写
         return songname
 
-    async def userinfo(self, *, with_recent: bool = True) -> schema.UserInfo:
-        r = await _call_api.recent(self.code)
+    async def userinfo(self, *, with_recent: bool) -> schema.UserInfo:
+        r = await _call_api.userinfo(self.code)
         r = r['data']
         recent = r['recent_score'][0] if with_recent else None
         name = r['name']
@@ -30,7 +30,7 @@ class APIQuery(APIQueryBase):
             recent_score=recent
         )
 
-    async def best30(self) -> schema.UserBest30:
+    async def userbest30(self) -> schema.UserBest30:
         r = await _call_api.all(self.code)
         user_ptt = r[1]['data']['rating'] / 100
         parsed_songs = [i for __ in r[2:] for i in __['data']]

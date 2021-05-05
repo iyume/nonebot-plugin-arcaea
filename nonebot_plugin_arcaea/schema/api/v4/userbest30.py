@@ -2,13 +2,13 @@ from typing import List
 
 from pydantic import validator
 
-from ..basemodel import Base
-from ._songscore import SongScore
+from ...basemodel import Base
+from .songscore import SongScore
 
 
 """
 {
-    "$schema": "https://github.com/TheSnowfield/BotArcAPI/wiki/Reference-of-v3-userbest30",
+    "$schema": "https://github.com/TheSnowfield/BotArcAPI/wiki/Reference-of-v4-user-best30",
     "best30_avg": 0.0000,
     "recent10_avg": 0.0000,
     "best30_list": [

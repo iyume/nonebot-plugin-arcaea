@@ -1,10 +1,13 @@
 from typing import Dict
 
+from httpx import Response
+
 from ._base import APIQueryBase
 from .adapters.estertion import APIQuery as Estertion
 from .adapters.botarcapi import APIQuery as Botarcapi
 from ..config import config
 from .. import schema
+from .exceptions import HTTPException
 
 
 class QueryResolver(object):
@@ -32,10 +35,25 @@ class QueryResolver(object):
         api = self.query_config['userinfo']
         return await api.userinfo(with_recent=with_recent)
 
-    async def best30(self) -> schema.UserBest30:
+    async def userbest30(self) -> schema.UserBest30:
         api = self.query_config['best30']
-        return await api.best30()
+        return await api.userbest30()
 
     async def songinfo(self, song_id: str) -> schema.SongInfo:
         api = self.query_config['songinfo']
         return await api.songinfo(song_id)
+
+
+def http_status_handler(response: Response) -> None:
+    status_code = response.status_code
+    if status_code == 200:
+        return
+    exception = HTTPException(
+        status_code=status_code, detail={
+            400: 'Bad request',
+            403: 'Forbidden',
+            404: 'Page not found',
+            422: 'Validation error'
+        }.get(status_code)
+    )
+    raise exception

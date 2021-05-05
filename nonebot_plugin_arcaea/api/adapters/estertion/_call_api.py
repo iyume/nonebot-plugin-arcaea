@@ -17,7 +17,7 @@ async def songdb(timeout: int = config.TIMEOUT) -> Any:
         return json.loads(brotli.decompress(r))
 
 
-async def recent(code: str, timeout: int = config.TIMEOUT) -> Any:
+async def userinfo(code: str, timeout: int = config.TIMEOUT) -> Any:
     """
     返回最近游玩成绩
     """

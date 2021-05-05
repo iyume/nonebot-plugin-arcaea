@@ -18,7 +18,7 @@ async def b30_handler(bot: Bot, state: T_State) -> Any:
             raise ValueError
         api = ArcApiPlus(current_user.code)
         query_start_time = time()
-        userbest30 = await api.best30()
+        userbest30 = await api.userbest30()
         query_end_time = time()
         await arc.finish()
         return
