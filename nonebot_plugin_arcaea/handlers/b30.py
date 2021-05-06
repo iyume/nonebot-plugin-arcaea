@@ -3,11 +3,13 @@ from time import time
 
 from nonebot.adapters.cqhttp import Bot
 from nonebot.typing import T_State
+from nonebot.log import logger
 
 from ..config import config
 from .. import schema
 from ..matcher import arc
 from ..api import ArcApiPlus
+from ..messages import ArcMessage
 
 
 async def b30_handler(bot: Bot, state: T_State) -> Any:
@@ -18,7 +20,18 @@ async def b30_handler(bot: Bot, state: T_State) -> Any:
             raise ValueError
         api = ArcApiPlus(current_user.code)
         query_start_time = time()
-        userbest30 = await api.userbest30()
+        try:
+            userbest30 = await api.userbest30()
+        except Exception as e:
+            logger.error(str(e))
+            await arc.finish('查询失败', at_sender=True)
+            return
         query_end_time = time()
-        await arc.finish()
-        return
+        if current_user.b30_type == 'text':
+            userbest30_msg = ArcMessage.text(userbest30)
+            send_msg = userbest30_msg + f"\n查询耗时: {query_end_time - query_start_time:.2f}s"
+            await arc.finish('B30 查询结果\n' + send_msg, at_sender=True)
+            return
+        else:
+            await arc.finish('this_is_b30.jpg')
+            return

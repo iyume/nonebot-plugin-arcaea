@@ -6,3 +6,4 @@ from .help import help_handler
 from .pre import pre_handler
 from .auth import auth_handler
 from .config import userconfig_handler
+from .songinfo import songinfo_handler

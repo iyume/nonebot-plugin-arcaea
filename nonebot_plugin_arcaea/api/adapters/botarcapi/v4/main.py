@@ -36,3 +36,9 @@ class APIQuery(APIQueryBase):
         recv = await call_api.userinfo(self.code, recent=with_recent)
         data_status_checker(recv['status'])
         return schema.UserInfo(**recv['content'])
+
+    @staticmethod
+    async def songinfo(songname: str) -> schema.SongInfo:
+        recv = await call_api.songinfo(songname)
+        data_status_checker(recv['status'])
+        return schema.SongInfo(**recv['content'])

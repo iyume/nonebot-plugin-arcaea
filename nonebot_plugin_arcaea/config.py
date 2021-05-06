@@ -25,6 +25,7 @@ class Config(BaseSettings):
     CMDA_INFO: set    = { 'info', 'userinfo' }
     CMDA_RECENT: set  = { 'recent' }
     CMDA_B30: set     = { 'b30', 'best30' }
+    CMDA_SONGINFO: set = { 'songinfo', 'song' }
 
     SQLITE_DATABASE_URI: str = 'db/all.db'
 

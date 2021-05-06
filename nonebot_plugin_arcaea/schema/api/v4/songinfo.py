@@ -4,6 +4,7 @@ from datetime import datetime
 from pydantic import validator
 
 from ...basemodel import Base
+from ..utils import num2diffstr
 
 
 """
@@ -53,22 +54,26 @@ from ...basemodel import Base
 """
 
 class SongInfoPerLevel(Base):
-    ratingClass: int
+    ratingClass: str
     chartDesigner: str
     jacketDesigner: str
-    rating: float
+    rating: int
     ratingReal: float
     totalNotes: int
     ratingPlus: bool = False
 
+    @validator('ratingClass', pre=True)
+    def prehandle_ratingclass(cls, v: int) -> str:
+        return num2diffstr(v)
+
 
 class SongInfo(Base):
-    id_: str
+    id: str
     title_localized: Dict[str, str]
     artist: str
     bpm: float       # automatic type conversion
     bpm_base: float  # automatic type conversion
-    set_: str
+    set: str
     audioTimeSec: int
     side: int
     remote_dl: bool
