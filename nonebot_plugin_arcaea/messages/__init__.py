@@ -1,1 +1,1 @@
-from .text import text
+from .main import Message as message

@@ -8,6 +8,8 @@ class APIQueryBase(abc.ABC):
     """
     包含所有可用的查询方法
     """
+    code: str  # Arcaea Code
+
     def __init__(self, code: str) -> None:
         self.code = code
 

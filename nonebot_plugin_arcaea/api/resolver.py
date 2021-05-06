@@ -11,22 +11,18 @@ class QueryResolver(object):
     """
     根据配置的 arcaea_query_config 来选择每个命令的查分源
     """
-    @property
-    def query_config(self) -> Dict[str, APIQueryBase]:
-        query_config: Dict[str, APIQueryBase] = {
+    def __init__(self, code: str) -> None:
+        super().__init__()
+        self.code = code
+        self.estertion = Estertion(code)
+        self.botarcapi = Botarcapi(code)
+        self.query_config: Dict[str, APIQueryBase] = {
             key: {
                 'estertion': self.estertion,
                 'botarcapi': self.botarcapi
             }[val]
             for key, val in config.QUERY_CONFIG.items()
         }
-        return query_config
-
-    def __init__(self, code: str) -> None:
-        super().__init__()
-        self.code = code
-        self.estertion = Estertion(code)
-        self.botarcapi = Botarcapi(code)
 
     async def userinfo(self, with_recent: bool) -> schema.UserInfo:
         api = self.query_config['userinfo']
