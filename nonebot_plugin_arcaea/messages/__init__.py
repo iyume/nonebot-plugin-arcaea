@@ -1,1 +1,1 @@
-from .main import Message as message
+from .main import ArcMessage

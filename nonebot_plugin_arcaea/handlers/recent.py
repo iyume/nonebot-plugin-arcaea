@@ -8,7 +8,7 @@ from ..config import config
 from ..matcher import arc
 from .. import schema
 from ..api import ArcApiPlus
-from .. import messages
+from ..messages import ArcMessage
 
 
 async def recent_handler(bot: Bot, state: T_State) -> Any:
@@ -22,11 +22,11 @@ async def recent_handler(bot: Bot, state: T_State) -> Any:
         try:
             userinfo = await api.userinfo(with_recent=True)
         except:
-            await arc.finish('查询失败，请尝试调整个性设置', at_sender=True)
+            await arc.finish('查询失败', at_sender=True)
             return
         query_end_time = time()
         if current_user.recent_type == 'text':
-            userinfo_msg = messages.text(userinfo)
+            userinfo_msg = ArcMessage.text(userinfo)
             send_msg = userinfo_msg + f"\n查询耗时: {query_end_time - query_start_time:.2f}"
             await arc.finish('Recent 查询结果\n' + send_msg, at_sender=True)
             return

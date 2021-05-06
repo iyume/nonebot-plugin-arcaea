@@ -7,7 +7,7 @@ from .themes.utils import import_theme
 from .themes._base import ThemeBase
 
 
-class Message(object):
+class ArcMessage(object):
     def __init__(self) -> None:
         super().__init__()
 

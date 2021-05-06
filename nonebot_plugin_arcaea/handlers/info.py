@@ -8,7 +8,7 @@ from ..config import config
 from ..matcher import arc
 from .. import schema
 from ..api import ArcApiPlus
-from .. import messages
+from ..messages import ArcMessage
 
 
 async def info_handler(bot: Bot, state: T_State) -> Any:
@@ -25,7 +25,7 @@ async def info_handler(bot: Bot, state: T_State) -> Any:
             await arc.finish('查询失败', at_sender=True)
             return
         query_end_time = time()
-        userinfo_msg = messages.text(userinfo)
+        userinfo_msg = ArcMessage.text(userinfo)
         send_msg = userinfo_msg + f"\n查询耗时: {query_end_time - query_start_time:.2f}"
         await arc.finish('Info 查询结果\n' + send_msg, at_sender=True)
         return
