@@ -86,7 +86,8 @@ class Config(BaseSettings):
         }
     """
 
-    TIMEOUT = 5
+    TIMEOUT = 8
+    # 出于 http b30 查询会较慢，在 http b30 查询时会在这个值上 +20
 
     HIGHEST_SONG_CONSTANT = 11.5
     # 目前最高歌曲定数（风暴byd）

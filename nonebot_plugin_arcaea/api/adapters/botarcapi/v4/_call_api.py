@@ -42,7 +42,8 @@ async def userbest30(code: str) -> Any:
     endpoint = get_uri(config.BOTARCAPI_URI) + '/user/best30'
     return await get(
         endpoint,
-        usercode=code
+        usercode=code,
+        timeout=config.TIMEOUT + 20
     )
 
 
