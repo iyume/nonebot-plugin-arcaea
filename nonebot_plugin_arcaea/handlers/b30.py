@@ -33,5 +33,7 @@ async def b30_handler(bot: Bot, state: T_State) -> Any:
             await arc.finish('B30 查询结果\n' + send_msg, at_sender=True)
             return
         else:
-            await arc.finish('this_is_b30.jpg')
+            userbest30_msg = ArcMessage.image(userbest30, theme_name=current_user.b30_type)
+            send_msg = userbest30_msg + f"\n查询耗时: {query_end_time - query_start_time:.2f}s"
+            await arc.finish('B30 查询结果\n' + send_msg, at_sender=True)
             return

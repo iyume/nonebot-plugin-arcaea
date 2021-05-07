@@ -65,7 +65,7 @@ class CRUDUser():
             "code": code,
             "is_active": is_active,
             "recent_type": recent_type,
-            "best30_type": best30_type
+            "b30_type": best30_type
         }
         argments = [f"{i}='{val}'" for i, val in update_dict.items() if val != None]
         db.execute(
