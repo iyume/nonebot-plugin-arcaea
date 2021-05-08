@@ -44,7 +44,7 @@ class Theme(ThemeBase):
                 draw.text((600, ylen + inner_gap[1]), f'Score: {b30_scores[i + 15]}', (255, 255, 255), font=ft_normal)
                 draw.text((850, ylen + inner_gap[2]), f'PTT: {b30_ratings[i + 15]:.2f}', (255, 255, 255), font=ft_normal)
         info_draw = f'Player PTT: {userptt:.2f}   b30_avg: {obj_in.best30_avg:.2f}   r10_avg: {obj_in.recent10_avg:.2f}'
-        draw.text((700, 930), info_draw, (200, 200, 200), font=ft_low)
+        draw.text((800, 930), info_draw, (200, 200, 200), font=ft_low)
         author_draw = datetime.now().strftime("%F %X") + "   Powered by iyume"
         draw.text((20, 930), author_draw, (200, 200, 200), font=ft_low)
         return MessageSegment.image(f'base64://{imageobj_to_base64(img)}')

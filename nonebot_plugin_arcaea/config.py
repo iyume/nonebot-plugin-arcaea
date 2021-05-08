@@ -36,9 +36,11 @@ class Config(BaseSettings):
         if not db_path.is_file():
             with open(plugin_dir / 'db' / 'init_db.sql') as f:
                 sql_text = f.read()
+            logger.info('sqlite db not found, initializing...')
             with sqlite3.connect(str(db_path)) as conn:
                 conn.execute(sql_text)
                 conn.commit()
+            logger.info('init db complete.')
         return str(db_path)
 
     ESTERTION_URI = 'wss://arc.estertion.win:616'
@@ -97,6 +99,7 @@ class Config(BaseSettings):
     # 可选：['theme_default', 'text']，分别对应图片和文字
 
     AVAILABLE_USER_CONFIG = ['text', 'theme_default']
+    # 添加了主题时，请在这里加上主题名称，格式为 `theme_` 开头
 
 
 config = Config()
