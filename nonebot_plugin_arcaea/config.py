@@ -92,7 +92,7 @@ class Config(BaseSettings):
     HIGHEST_SONG_CONSTANT = 11.5
     # 目前最高歌曲定数（风暴byd）
 
-    DEFAULT_RECENT_TYPE: str = 'theme_default'
+    DEFAULT_RECENT_TYPE: str = 'text'
     DEFAULT_BEST30_TYPE: str = 'theme_default'
     # 可选：['theme_default', 'text']，分别对应图片和文字
 

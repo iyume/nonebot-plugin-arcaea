@@ -19,12 +19,15 @@ class CRUDUser():
             "qq": qq,
             "code": code,
             "created_time": f"{datetime.now():%F %X}",
+            "is_active": True,
             "recent_type": config.DEFAULT_RECENT_TYPE,
             "b30_type": config.DEFAULT_BEST30_TYPE
         }
+        db_arg_columns = [i for i in user_dict.keys()]
+        db_arg_values = [f"'{str(i)}'" for i in user_dict.values()]
         db.execute(
-            f"""INSERT INTO accounts ({','.join(user_dict.keys())})
-            VALUES ({','.join(f"'{str(val)}'" for val in user_dict.values())})""")
+            f"""INSERT INTO accounts ({','.join(db_arg_columns)})
+            VALUES ({','.join(db_arg_values)})""")
 
     def get_by_qq(
         self,

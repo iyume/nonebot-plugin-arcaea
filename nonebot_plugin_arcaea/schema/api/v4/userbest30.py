@@ -42,4 +42,6 @@ class UserBest30(Base):
 
     @validator('best30_list', pre=True)
     def prehandle_best30_list(cls, best30_list: List[dict]) -> List[SongScore]:
+        if len(best30_list) > 30:
+            raise ValueError
         return [SongScore(**d) for d in sorted(best30_list, key=lambda x: x['rating'], reverse=True)]
