@@ -87,9 +87,8 @@ activate your virtualenv
 pip 开发模式安装 `nonebot-plugin-arcaea`
 
 ```
-cd nonebot2
-cd src/plugins/npa
-git clone https://github.com/iyume/nonebot-plugin-arcaea
+cd nonebot2/src/plugins/npa
+git clone https://github.com/iyume/nonebot-plugin-arcaea .
 (activate virtualenv)
 pip install -e .
 ```
@@ -99,6 +98,10 @@ pip install -e .
 ```
 nonebot.load_plugins('src/plugins/npa')
 ```
+
+**注意**
+
+nonebot 开发模式会导致 watchgod 监视 db 文件的改动，导致每次 db 的变更都会使得 nonebot 重启，请不要惊讶，将环境设为 dev 即可
 
 ### 主题开发
 
