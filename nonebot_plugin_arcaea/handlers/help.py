@@ -10,7 +10,7 @@ from ..matcher import arc
 async def help_handler(bot: Bot, state: T_State) -> Any:
     cmd = state['cmd']
     if cmd in config.CMDA_HELP:
-        await arc.finish('\n'.join((
+        await arc.finish('\n\n'.join((
             "Arcaea 查分命令皆以 \"/arc\" 开头",
             "/arc help 帮助文档",
             "/arc bind 绑定账户",
