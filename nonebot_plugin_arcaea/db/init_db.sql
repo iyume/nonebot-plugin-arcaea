@@ -3,6 +3,6 @@ CREATE TABLE accounts (
     code CHAR(9),
     created_time TIMESTAMP DEFAULT (datetime('now', 'localtime')),
     is_active BOOL DEFAULT true,
-    recent_type CHAR(10) DEFAULT 'pic',
-    b30_type CHAR(10) DEFAULT 'pic'
+    recent_type CHAR(10) DEFAULT 'text',
+    b30_type CHAR(10) DEFAULT 'theme_default'
 );
