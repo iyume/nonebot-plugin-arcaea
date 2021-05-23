@@ -128,6 +128,10 @@ nonebot 开发模式会导致 watchgod 监视 db 文件的改动，导致每次 
 - [esterTion / arc-probe-server.php](https://gist.github.com/esterTion/c673a5e2547cd54c202f129babaf601d)
 - [All Arcaea Player](https://arcaea.lowiro.com)
 
+## 目前开发情况
+
+有点忘了前几天改了些啥，也忘了下一步要干啥了，先 stash commit 一下
+
 ## 后期打算
 
 查询 estertion 得到的 allscores 使用 fastapi 编写 endpoint 并挂载到 bot 上

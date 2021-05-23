@@ -5,7 +5,7 @@ from httpx import AsyncClient, TimeoutException
 from .....config import config
 from .....exceptions import ConfigError
 from ....utils import http_status_handler
-from ....exceptions import HTTPException
+from .....exceptions import HTTPException
 
 
 def get_uri(uri: Optional[str]) -> str:
@@ -43,7 +43,7 @@ async def userbest30(code: str) -> Any:
     return await get(
         endpoint,
         usercode=code,
-        timeout=config.TIMEOUT + 20
+        timeout=config.TIMEOUT_B30
     )
 
 

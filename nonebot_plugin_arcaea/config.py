@@ -14,10 +14,10 @@ class Config(BaseSettings):
 
     _config: Any = deepcopy(nonebot.get_driver().config)
 
-    CMD: str = 'arc'       # 响应指令
-    ALIASES: set = {'a'}  # 命令的 aliases
+    CMD: str       = 'arc'    # 响应指令
+    ALIASES: set   = { 'a' }  # 命令的 aliases
     CMD_START: str = list(_config.command_start)[0]
-    CMD_SEP: str = list(_config.command_sep)[0]
+    CMD_SEP: str   = list(_config.command_sep)[0]
 
     # command aliases setting
     CMDA_HELP: set    = { 'help', 'doc', '帮助' }
@@ -26,6 +26,7 @@ class Config(BaseSettings):
     CMDA_RECENT: set  = { 'recent' }
     CMDA_B30: set     = { 'b30', 'best30' }
     CMDA_SONGINFO: set = { 'songinfo', 'song' }
+    CMDA_BEST: set    = { 'best' }
 
     SQLITE_DATABASE_URI: str = 'db/all.db'
 
@@ -89,7 +90,8 @@ class Config(BaseSettings):
     """
 
     TIMEOUT = 8
-    # 出于 http b30 查询会较慢，在 http b30 查询时会在这个值上 +20
+    TIMEOUT_B30 = 40
+    # 出于 b30 查询会较慢，b30 的超时额外设置
 
     HIGHEST_SONG_CONSTANT = 11.5
     # 目前最高歌曲定数（风暴byd）

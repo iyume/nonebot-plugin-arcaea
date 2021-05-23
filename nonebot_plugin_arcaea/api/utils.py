@@ -1,6 +1,6 @@
 from httpx import Response
 
-from .exceptions import HTTPException
+from ..exceptions import HTTPException
 
 
 def http_status_handler(response: Response) -> None:

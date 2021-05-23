@@ -5,6 +5,7 @@ from nonebot.adapters.cqhttp.message import MessageSegment
 from .. import schema
 from .themes.utils import import_theme
 from .themes._base import ThemeBase
+from . import text_utils
 
 
 class ArcMessage(object):
@@ -13,7 +14,7 @@ class ArcMessage(object):
 
     @staticmethod
     def text(obj_in: Union[
-        schema.UserInfo, schema.UserBest30, schema.SongInfo
+        schema.UserInfo, schema.UserBest30, schema.SongInfo, schema.SongScore
     ]) -> MessageSegment:
         if isinstance(obj_in, schema.UserInfo):
             info_msg = '\n'.join((
@@ -35,7 +36,7 @@ class ArcMessage(object):
             msg = '\n'.join([x for x in [info_msg, recent_msg] if isinstance(x, str)])
             return MessageSegment.text(msg)
         if isinstance(obj_in, schema.UserBest30):
-            def songscore_msg(s: schema.SongScore) -> str:
+            def songscore_msg_lambda(s: schema.SongScore) -> str:
                 return '\n'.join((
                     f"{s.song_id} {s.difficulty}",
                     f"  Score: {s.score}",
@@ -47,7 +48,7 @@ class ArcMessage(object):
             ))
             songs_msg = '\n'.join(
                 f"{i + 1}: {val}" for i, val in enumerate(
-                    map(songscore_msg, obj_in.best30_list)))
+                    map(songscore_msg_lambda, obj_in.best30_list)))
             msg = '\n'.join((info_msg, songs_msg))
             return MessageSegment.text(msg)
         if isinstance(obj_in, schema.SongInfo):
@@ -67,6 +68,9 @@ class ArcMessage(object):
             levels_msg = '\n'.join(map(songinfo_perlevel, obj_in.difficulties))
             msg = '\n'.join((info_msg, levels_msg))
             return MessageSegment.text(msg)
+        if isinstance(obj_in, schema.SongScore):
+            songscore_msg = text_utils.songscore(obj_in)
+            return MessageSegment.text(songscore_msg)
 
     @staticmethod
     def image(

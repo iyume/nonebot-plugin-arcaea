@@ -10,6 +10,7 @@ from ..matcher import arc
 from .. import schema
 from ..api import ArcApiPlus
 from ..messages import ArcMessage
+from ..exceptions import HTTPException
 
 
 async def info_handler(bot: Bot, state: T_State) -> Any:
@@ -22,9 +23,13 @@ async def info_handler(bot: Bot, state: T_State) -> Any:
         query_start_time = time()
         try:
             userinfo = await api.userinfo(with_recent=False)
+        except HTTPException as e:
+            logger.error(e.detail)
+            await arc.finish('服务器连接失败', at_sender=True)
+            return
         except Exception as e:
             logger.error(str(e))
-            await arc.finish('查询失败', at_sender=True)
+            await arc.finish('查询失败~', at_sender=True)
             return
         query_end_time = time()
         userinfo_msg = ArcMessage.text(userinfo)

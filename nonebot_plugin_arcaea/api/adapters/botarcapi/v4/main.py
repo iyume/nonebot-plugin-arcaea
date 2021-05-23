@@ -1,7 +1,7 @@
 from ...._base import APIQueryBase
 from .....config import config
 from ..... import schema
-from ....exceptions import HTTPException
+from .....exceptions import HTTPException
 from . import _call_api as call_api
 
 

@@ -39,7 +39,7 @@ async def userinfo(code: str, timeout: int = config.TIMEOUT) -> Any:
                     return content
 
 
-async def all(code: str, timeout: int = config.TIMEOUT) -> Any:
+async def all(code: str, timeout: int = config.TIMEOUT_B30) -> Any:
     """
     返回 ws 查询的全部结果，包括 ``userinfo``, ``recent``, ``record of all songs``
     """

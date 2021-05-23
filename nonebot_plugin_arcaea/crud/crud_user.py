@@ -27,7 +27,8 @@ class CRUDUser():
         db_arg_values = [f"'{str(i)}'" for i in user_dict.values()]
         db.execute(
             f"""INSERT INTO accounts ({','.join(db_arg_columns)})
-            VALUES ({','.join(db_arg_values)})""")
+            VALUES ({','.join(('?' * len(user_dict)).split())})""",
+            db_arg_values)
 
     def get_by_qq(
         self,
@@ -70,11 +71,11 @@ class CRUDUser():
             "recent_type": recent_type,
             "b30_type": best30_type
         }
-        argments = [f"{i}='{val}'" for i, val in update_dict.items() if val != None]
+        db_arg_columns, db_arg_values = zip(
+            *[(f"{i}=?", val) for i, val in update_dict.items() if val != None])
         db.execute(
-            f"UPDATE accounts SET {','.join(argments)} WHERE qq=?",
-            (qq,)
-        )
+            f"UPDATE accounts SET {','.join(db_arg_columns)} WHERE qq=?",
+            (*db_arg_values, qq))
 
     def delete(
         self,
@@ -85,7 +86,7 @@ class CRUDUser():
         db.execute(
             "UPDATE accounts SET code=NULL WHERE qq=?",
             (qq,)
-        ).fetchone()
+        )
 
 
 user = CRUDUser()
