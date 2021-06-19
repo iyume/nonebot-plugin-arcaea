@@ -1,4 +1,5 @@
 # nonebot-plugin-arcaea
+
 [![pypi](https://img.shields.io/pypi/v/nonebot-plugin-arcaea.svg)](https://pypi.org/project/nonebot-plugin-arcaea/)
 ![python](https://img.shields.io/pypi/pyversions/nonebot-plugin-arcaea)
 [![license](https://img.shields.io/github/license/iyume/nonebot-plugin-arcaea.svg)](https://raw.githubusercontent.com/iyume/nonebot-plugin-arcaea/main/LICENSE)
@@ -23,7 +24,7 @@
 
 - `config` 命令允许用户设置自己查分的主题
 
-- 为来自 [BotArcApi](https://github.com/TheSnowfield/BotArcAPI) 搭建的 API 做了适配
+- 为来自 [BotArcAPI](https://github.com/TheSnowfield/BotArcAPI) 搭建的 API 做了适配
 
 - `handler` 分离式设计，增加对命令处理的灵活性
 
@@ -109,7 +110,7 @@ nonebot 开发模式会导致 watchgod 监视 db 文件的改动，导致每次 
 
 2. 基类源码见 `messages/themes/_base.py`
 
-3. 参数参照 `schema/api` 内的文件，也可直接查看 [BotArcApi](https://github.com/TheSnowfield/BotArcAPI/wiki) 给的传输示例，甚至因为类型提示的存在，你可以啥都不看就开始写
+3. 参数参照 `schema/api` 内的文件，也可直接查看 [BotArcAPI](https://github.com/TheSnowfield/BotArcAPI/wiki) 给的传输示例，甚至因为类型提示的存在，你可以啥都不看就开始写
 
 4. 在 `config.py` 中 `AVAILABLE_USER_CONFIG` 条目里加上你的主题包名
 
@@ -119,9 +120,10 @@ nonebot 开发模式会导致 watchgod 监视 db 文件的改动，导致每次 
 
 由于 ttf 文件会附带在源码内，请不要使用中文字体开发主题，尽量使用英文字体，后期可能会考虑限制字体类型
 
-同样地，作为背景的图片尽量压缩 (500k以内)，不仅仅是减少源码的负担，在消息传输时过大的 `base64` 字符串容易也导致发送失败
+同样地，作为背景的图片尽量压缩 (500k 以内)，不仅仅是减少源码的负担，在消息传输时过大的 `base64` 字符串容易也导致发送失败
 
 ## 特别感谢
+
 - [Mrs4s / go-cqhttp](https://github.com/Mrs4s/go-cqhttp)
 - [nonebot / nonebot2](https://github.com/nonebot/nonebot2)
 - [TheSnowfield / BotArcAPI](https://github.com/TheSnowfield/BotArcAPI)
@@ -130,7 +132,13 @@ nonebot 开发模式会导致 watchgod 监视 db 文件的改动，导致每次 
 
 ## 目前开发情况
 
-有点忘了前几天改了些啥，也忘了下一步要干啥了，先 stash commit 一下
+一些 BotArcAPI 的接口实现尚未完善成一个指令
+
+`recent` 查分还没有一个图片示例的实现
+
+handlers 那一块的结构需要调整
+
+源码注释不太足够
 
 ## 后期打算
 
