@@ -24,10 +24,10 @@ class CRUDUser():
             "b30_type": config.DEFAULT_BEST30_TYPE
         }
         db_arg_columns = [i for i in user_dict.keys()]
-        db_arg_values = [f"'{str(i)}'" for i in user_dict.values()]
+        db_arg_values = [str(i) for i in user_dict.values()]
         db.execute(
             f"""INSERT INTO accounts ({','.join(db_arg_columns)})
-            VALUES ({','.join(('?' * len(user_dict)).split())})""",
+            VALUES ({','.join(list('?' * len(user_dict)))})""",
             db_arg_values)
 
     def get_by_qq(
