@@ -1,6 +1,6 @@
 [project]
 name = "nonebot-plugin-arcaea"
-version = "0.2.0"
+version = "0.2.1"
 description = "An arcaea rhythm game score-querying bot plugin for nonebot2."
 authors = [
     {name = "iyume", email = "iyumelive@gmail.com"},
