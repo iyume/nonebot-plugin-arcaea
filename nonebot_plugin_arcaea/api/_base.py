@@ -1,5 +1,5 @@
 import abc
-from typing import Optional
+from typing import Optional, List
 
 from .. import schema
 
@@ -34,7 +34,7 @@ class APIQueryBase(abc.ABC):
         raise NotImplementedError
 
     @staticmethod
-    async def songalias(songid: str) -> list[str]:
+    async def songalias(songid: str) -> List[str]:
         """
         Return all of the aliases about this song.
         """
